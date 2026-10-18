@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Maze Reveal</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-wrap">
+      <header class="topbar">
+        <div class="brand">🎉 Birthday unlock</div>
+        <button id="restartBtn" class="ghost-btn" type="button">Restart</button>
+      </header>
+
+      <main class="game-shell">
+        <section class="panel info-panel">
+          <p class="eyebrow">Mini-game unlock</p>
+          <h1>Catch the birthday stars</h1>
+          <p class="subtitle">
+            Collect every glowing star in each round. Finish all levels and reveal the surprise message.
+          </p>
+
+          <div class="stats">
+            <div class="stat-box">
+              <span class="label">Level</span>
+              <strong id="levelValue">1</strong>
+            </div>
+            <div class="stat-box">
+              <span class="label">Stars</span>
+              <strong id="starsValue">0/0</strong>
+            </div>
+            <div class="stat-box">
+              <span class="label">Time</span>
+              <strong id="timeValue">30</strong>
+            </div>
+          </div>
+
+          <div class="message-box" id="statusMessage">
+            Collect all stars to unlock the surprise.
+          </div>
+        </section>
+
+        <section class="board-panel">
+          <canvas id="gameCanvas" width="720" height="480" aria-label="Birthday mini game"></canvas>
+
+          <div class="dpad" aria-label="Touch controls">
+            <button class="dir-btn" data-dir="up" aria-label="Move up">▲</button>
+            <div class="mid-row">
+              <button class="dir-btn" data-dir="left" aria-label="Move left">◀</button>
+              <button class="dir-btn" data-dir="down" aria-label="Move down">▼</button>
+              <button class="dir-btn" data-dir="right" aria-label="Move right">▶</button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="reveal-card hidden" id="revealCard" aria-live="polite">
+        <div class="reveal-icon">🎁</div>
+        <h2>Surprise unlocked!</h2>
+        <p>
+          You made it! Every birthday wish, every little smile, and every happy memory you carry
+          make life brighter. Today is your day to shine, celebrate, and feel loved.
+        </p>
+        <p class="signature">With love and a million tiny wishes 💖</p>
+      </aside>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

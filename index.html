@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Idea Lab</title>
+  <style>
+    :root {
+      --bg: #fffaf6;
+      --bg-strong: #fff1f5;
+      --panel: rgba(255, 255, 255, 0.82);
+      --panel-strong: #ffffff;
+      --line: rgba(97, 68, 88, 0.12);
+      --ink: #2f1d2e;
+      --muted: #6f5265;
+      --pink: #f25d8c;
+      --pink-soft: #ffdfe9;
+      --peach: #ffb88d;
+      --gold: #ffd76a;
+      --mint: #9fe2bf;
+      --lavender: #c7c0ff;
+      --shadow: rgba(87, 48, 63, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 183, 170, 0.32), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(245, 162, 185, 0.25), transparent 30%),
+        var(--bg);
+      color: var(--ink);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: rgba(255, 250, 246, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--pink), #ff9bb4);
+      color: #fff;
+      box-shadow: 0 10px 28px rgba(242, 93, 140, 0.25);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      background: rgba(242, 93, 140, 0.08);
+      color: var(--ink);
+      outline: none;
+    }
+
+    .hero {
+      padding: 68px 0 40px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 18px;
+      padding: 10px 16px;
+      border: 1px solid rgba(242, 93, 140, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 208, 220, 0.45);
+      color: #a84e62;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+    }
+
+    .hero p {
+      font-size: 1.08rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 18px 0 30px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 22px;
+      border: none;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(242, 93, 140, 0.18);
+      outline: none;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--pink), #f182a7);
+      color: white;
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.75);
+      color: var(--ink);
+      border: 1px solid rgba(92, 67, 79, 0.1);
+    }
+
+    .hero-panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,240,246,0.8));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: 0 32px 80px var(--shadow);
+      padding: 28px;
+    }
+
+    .mini-board {
+      display: grid;
+      gap: 18px;
+    }
+
+    .stat-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(92, 67, 79, 0.08);
+      border-radius: 18px;
+      padding: 16px 18px;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .sparkles {
+      display: flex;
+      gap: 7px;
+      font-size: 1.25rem;
+      color: #f4b44f;
+    }
+
+    .section {
+      padding: 34px 0 32px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.05em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 620px;
+      line-height: 1.7;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 18px 0 22px;
+    }
+
+    .filter {
+      padding: 10px 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(92, 67, 79, 0.1);
+      background: rgba(255,255,255,0.5);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .filter:hover,
+    .filter.active {
+      background: linear-gradient(135deg, rgba(242,93,140,0.12), rgba(255,184,141,0.12));
+      border-color: rgba(242,93,140,0.2);
+      color: var(--ink);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .idea-card {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: 0 18px 30px rgba(59, 37, 48, 0.04);
+      padding: 22px 20px 18px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .idea-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 40px rgba(59, 37, 48, 0.08);
+    }
+
+    .idea-card.hidden {
+      display: none;
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 11px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(242,93,140,0.09);
+      color: #b15075;
+    }
+
+    .difficulty {
+      font-size: 0.72rem;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .difficulty.easy {
+      background: rgba(159, 226, 191, 0.25);
+      color: #2a7d61;
+    }
+
+    .difficulty.medium {
+      background: rgba(255, 184, 141, 0.25);
+      color: #8e5e31;
+    }
+
+    .difficulty.hard {
+      background: rgba(199, 192, 255, 0.25);
+      color: #5b4bb0;
+    }
+
+    .idea-card h3 {
+      margin: 0;
+      font-size: 1.38rem;
+      line-height: 1.25;
+      letter-spacing: -0.04em;
+    }
+
+    .idea-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .meta span {
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(87, 48, 63, 0.04);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 8px 10px;
+    }
+
+    ul {
+      padding-left: 18px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .repo {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(92, 67, 79, 0.08);
+      padding-top: 14px;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .repo strong {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .highlight {
+      padding: 20px 0 72px;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(242,93,140,0.08), rgba(252,191,120,0.08));
+      border: 1px solid rgba(242,93,140,0.1);
+      border-radius: 28px;
+      padding: clamp(22px, 4vw, 38px);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .highlight-box h3 {
+      margin: 0 0 6px;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      letter-spacing: -0.05em;
+    }
+
+    .highlight-box p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .notes {
+      padding: 8px 0 72px;
+    }
+
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .note-card {
+      border-radius: 20px;
+      background: var(--panel-strong);
+      border: 1px solid var(--line);
+      padding: 22px;
+      box-shadow: 0 12px 24px rgba(59, 37, 48, 0.03);
+    }
+
+    .note-card h4 {
+      margin: 0 0 10px;
+      font-size: 1.12rem;
+    }
+
+    .note-card p,
+    .note-card li {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .note-card ul {
+      padding-left: 18px;
+      margin-top: 8px;
+    }
+
+    footer {
+      padding: 0 0 48px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    @media (max-width: 980px) {
+      .hero-inner,
+      .grid,
+      .notes-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid,
+      .notes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        padding: 18px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Birthday Idea Lab home">
+        <span class="brand-mark">🎉</span>
+        <span>Birthday Idea Lab</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#ideas">Ideas</a>
+        <a href="#highlights">Best Picks</a>
+        <a href="#notes">Notes</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <div class="eyebrow">Creative birthday ideas</div>
+          <h1>Build a surprise that feels personal.</h1>
+          <p>
+            From confetti cards to interactive games and collaborative guestbooks,
+            these ideas turn a birthday into a memorable digital experience. Pick a concept,
+            match it to your vibe, and launch something joyful in a weekend.
+          </p>
+          <div class="cta-row">
+            <a class="button primary" href="#ideas">Browse all ideas</a>
+            <button class="button secondary" type="button" id="pick-random">Pick a random idea</button>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Quick statistics">
+          <div class="mini-board">
+            <div class="stat-box">
+              <div>
+                <div class="stat-label">Project ideas</div>
+                <div class="stat-value">10</div>
+              </div>
+              <div class="sparkles" aria-hidden="true">✨ ✨ ✨</div>
+            </div>
+            <div class="stat-box">
+              <div>
+                <div class="stat-label">Skill levels</div>
+                <div class="stat-value">3</div>
+              </div>
+              <div class="sparkles" aria-hidden="true">🎯 🎯 🎯</div>
+            </div>
+            <div class="stat-box">
+              <div>
+                <div class="stat-label">Best vibe</div>
+                <div class="stat-value">Fun</div>
+              </div>
+              <div class="sparkles" aria-hidden="true">💖 💖 💖</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="ideas">
+      <div class="container">
+        <div class="section-head">
+          <h2>Pick your perfect birthday build</h2>
+          <p>Each option includes a short concept, stack suggestion, difficulty, and personalization ideas so you can choose quickly.</p>
+        </div>
+
+        <div class="filters" aria-label="Filter birthday ideas by difficulty">
+          <button class="filter active" type="button" data-filter="all">All</button>
+          <button class="filter" type="button" data-filter="easy">Easy</button>
+          <button class="filter" type="button" data-filter="medium">Medium</button>
+          <button class="filter" type="button" data-filter="hard">Hard</button>
+        </div>
+
+        <div class="grid" id="idea-grid">
+          <article class="idea-card" data-difficulty="easy">
+            <div class="top-row">
+              <span class="tag">Single Page</span>
+              <span class="difficulty easy">Easy</span>
+            </div>
+            <h3>Confetti single-page card</h3>
+            <p>A celebratory birthday page with confetti, a reveal message, and background music.</p>
+            <div class="meta">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JS</span>
+            </div>
+            <ul>
+              <li>Play/pause music</li>
+              <li>Reveal animation</li>
+              <li>Share link</li>
+            </ul>
+            <div class="repo"><strong>Repo</strong><span>birthday-confetti</span></div>
+          </article>
+
+          <article class="idea-card" data-difficulty="medium">
+            <div class="top-row">
+              <span class="tag">Landing Page</span>
+              <span class="difficulty medium">Medium</span>
+            </div>
+            <h3>Countdown + RSVP landing</h3>
+            <p>Build excitement with a party countdown and a quick RSVP form for guests.</p>
+            <div class="meta">
+              <span>Static</span>
+              <span>Forms</span>
+              <span>Netlify</span>
+            </div>
+            <ul>
+              <li>Countdown timer</li>
+              <li>Guest RSVP</li>
+              <li>Party details</li>
+            </ul>
+            <div class="repo"><strong>Repo</strong><span>birthday-countdown-rsvp</span></div>
+          </article>
+
+          <article class="idea-card" data-difficulty="medium">
+            <div class="top-row">
+              <span class="tag">Slideshow</span>
+              <span class="difficulty medium">Medium</span>
+            </div>
+            <h3>Memory slideshow / photo carousel</h3>
+            <p>Create a fullscreen slideshow full of favorite photos, captions, and memories.</p>
+            <div class="meta">
+              <span>Static</span>
+              <span>Swiper</span>
+              <span>React</span>
+            </div>
+            <ul>
+              <li>Auto-play</li>
+              <li>Manual controls</li>
+              <li>Captions</li>
+            </ul>
+            <div class="repo"><strong>Repo</strong><span>birthday-slideshow</span></div>
+          </article>
+
+          <article class="idea-card" data-difficulty="medium">
+            <div class="top-row">
+              <span class="tag">Video</span>
+              <span class="difficulty medium">Medium</span>
+            </div>
+            <h3>Video montage player</h3>
+            <p>Play a sequence of short videos from friends and end with a heartwarming surprise.</p>
+            <div class="meta">
+              <span>HTML5</span>
+              <span>Plyr</span>
+              <span>Video</span>
+            </div>
+            <ul>
+              <li>Crossfades</li>
+              <li>Captions</li>
+              <li>Final surprise message</li>
+            </ul>
+            <div class="repo"><strong>Repo</strong><span>birthday-video-montage</span></div>
+          </article>
+
+          <article class="idea-card" data-difficulty="medium-hard">
+            <div class="top-row">
+              <span class="tag">Interactive</span>
+              <span class="difficulty hard">Hard</span>
+            </div>
+            <h3>Interactive canvas card</h3>
+            <p>Let guests draw, write notes, and leave messages on a canvas-based birthday card.</p>
+            <div class="meta">
+              <span>Canvas</span>
+              <span>p5.js</span>
+              <span>JS</span>
+            </div>
+            <ul>
+              <li>Save drawings</li>
+              <li>Undo &amp; color picker</li>
+              <li>Animated reveal</li>
+            </ul>
+            <div class="repo"><strong>Repo</strong><span>birthday-doodle-card</span></div>
+          </article>
+
+          <article class="idea-card" data-difficulty="hard">
+            <div class="top-row">
+              <span class="tag">Game</span>
+              <span class="difficulty hard">Hard</span>
+            </div>
+            <h3>Mini-game unlock</h3>
+            <p>Turn a birthday surprise into a small game that unlocks a message, reward, or video.</p>
+            <div class="meta">
+              <span>Phaser</span>
+              <span>Pixi</span>
+              <span>Canvas</span>
+            </div>
+            <ul>
+              <li>Levels</li>
+              <li>Mobile support</li>
+              <li>Final reveal screen</li>
+            </ul>
+            <div class="repo"><strong>Repo</strong><span>birthday-game-unlock</span></div>
+          </article>
+
+          <article class="idea-card" data-difficulty="medium">
+            <div class="top-row">
+              <span class="tag">Community</span>
+              <span class="difficulty medium">Medium</span>
+            </div>
+            <h3>Collaborative guestbook</h3>
+            <p>Allow friends to leave messages and photos that appear live on the birthday page.</p>
+            <div class="meta">
+              <span>Firebase</span>
+              <span>Supabase</span>
+              <span>Node</span>
+            </div>
+            <ul>
+              <li>Live updates</li>
+              <li>Moderation queue</li>
+              <li>Photo uploads</li>
+            </ul>
+            <div class="repo"><strong>Repo</strong><span>birthday-guestbook</span></div>
+          </article>
+
+          <article class="idea-card" data-difficulty="medium">
+            <div class="top-row">
+              <span class="tag">Timed Surprise</span>
+              <span class="difficulty medium">Medium</span>
+            </div>
+            <h3>Timed surprise reveal</h3>
+            <p>Use a scheduled deploy or action to reveal the surprise at the exact moment it matters.</p>
+            <div class="meta">
+              <span>GitHub Actions</span>
+              <span>Static</span>
+              <span>Netlify</span>
+            </div>
+            <ul>
+              <li>Secret link</li>
+              <li>Auto reveal</li>
+              <li>Countdown sync</li>
+            </ul>
+            <div class="repo"><strong>Repo</strong><span>birthday-timed-reveal</span></div>
+          </article>
+
+          <article class="idea-card" data-difficulty="hard">
+            <div class="top-row">
+              <span class="tag">PWA</span>
+              <span class="difficulty hard">Hard</span>
+            </div>
+            <h3>PWA gift app</h3>
+            <p>Turn the birthday surprise into an installable app that works offline with music and photos.</p>
+            <div class="meta">
+              <span>React</span>
+              <span>Vite</span>
+              <span>PWA</span>
+            </div>
+            <ul>
+              <li>Offline use</li>
+              <li>Add to home screen</li>
+              <li>Custom splash screen</li>
+            </ul>
+            <div class="repo"><strong>Repo</strong><span>birthday-pwa</span></div>
+          </article>
+
+          <article class="idea-card" data-difficulty="easy-medium">
+            <div class="top-row">
+              <span class="tag">Quiz</span>
+              <span class="difficulty easy">Easy</span>
+            </div>
+            <h3>Personalized quiz / trivia</h3>
+            <p>Turn a fun quiz into a cute celebration, ending with a score and emotional message.</p>
+            <div class="meta">
+              <span>Static</span>
+              <span>React</span>
+              <span>JS</span>
+            </div>
+            <ul>
+              <li>Share score</li>
+              <li>Animated result card</li>
+              <li>Personalized prompts</li>
+            </ul>
+            <div class="repo"><strong>Repo</strong><span>birthday-quiz</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="highlight" id="highlights">
+      <div class="container">
+        <div class="highlight-box">
+          <div>
+            <h3>Top recommendation</h3>
+            <p>For a balanced mix of wow-factor, ease, and personal touch, the best picks are the confetti card, countdown + RSVP landing page, and the memory slideshow.</p>
+          </div>
+          <a class="button primary" href="#ideas">Start from a favorite</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="notes" id="notes">
+      <div class="container">
+        <div class="section-head">
+          <h2>Accessibility &amp; privacy</h2>
+        </div>
+        <div class="notes-grid">
+          <article class="note-card">
+            <h4>Design</h4>
+            <p>Make text legible, use larger tap targets, and keep controls keyboard-friendly for a smoother experience.</p>
+          </article>
+          <article class="note-card">
+            <h4>Photos</h4>
+            <p>Always get consent before accepting photos and add moderation safeguards if guests can upload content.</p>
+          </article>
+          <article class="note-card">
+            <h4>Data</h4>
+            <p>If you collect emails or RSVP details, clearly explain where the information is stored and how it is used.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">Birthday Idea Lab — inspiration for joyful, meaningful celebration websites.</div>
+  </footer>
+
+  <script>
+    const filterButtons = document.querySelectorAll('.filter');
+    const cards = document.querySelectorAll('.idea-card');
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        filterButtons.forEach((btn) => btn.classList.toggle('active', btn === button));
+        const filter = button.dataset.filter;
+
+        cards.forEach((card) => {
+          const difficulty = card.dataset.difficulty;
+          const shouldShow = filter === 'all' || difficulty.includes(filter) || (filter === 'medium' && difficulty === 'medium-hard');
+          card.classList.toggle('hidden', !shouldShow);
+        });
+      });
+    });
+
+    const randomButton = document.getElementById('pick-random');
+    randomButton.addEventListener('click', () => {
+      const visibleCards = [...cards].filter((card) => !card.classList.contains('hidden'));
+      const selected = visibleCards[Math.floor(Math.random() * visibleCards.length)];
+      if (selected) {
+        selected.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        selected.style.outline = '3px solid rgba(242,93,140,0.7)';
+        selected.style.outlineOffset = '6px';
+        setTimeout(() => {
+          selected.style.outline = 'none';
+          selected.style.outlineOffset = '0';
+        }, 1800);
+      }
+    });
+  </script>
+</body>
+</html>
